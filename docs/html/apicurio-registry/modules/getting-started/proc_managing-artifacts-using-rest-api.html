@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Managing artifacts using the Registry REST API :: Apicurio Registry</title>
+    <link rel="canonical" href="https://pwright.github.io/apicurio-registry/html/apicurio-registry/modules/getting-started/proc_managing-artifacts-using-rest-api.html">
+    <meta name="generator" content="Antora 2.3.3">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://pwright.github.io/apicurio-registry/html"><img  style="height:60px" src="../../../_/img/logo.png">Apicurio Registry</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="#">Home</a>
+        <div class="navbar-item has-dropdown is-hoverable">
+         
+        </div>
+        <div class="navbar-item">
+          <span class="control">
+            <a class="#button is-primary" href="#"></a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="apicurio-registry" data-version="master">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../../index.html">Apicurio Registry</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../index.html"> Home</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Apicurio Registry</span>
+    <span class="version">master</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <span class="title">Apicurio Registry</span>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../../index.html">master</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../../index.html">Apicurio Registry</a></li>
+    <li><a href="proc_managing-artifacts-using-rest-api.html">Managing artifacts using the Registry REST API</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="file:///home/pwright/repos/a/apicurio-registry/antora/modules/ROOT/pages/modules/getting-started/proc_managing-artifacts-using-rest-api.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<article class="doc">
+<h1 class="page">Managing artifacts using the Registry REST API</h1>
+<div class="paragraph">
+<p>The Registry REST API enables client applications to manage artifacts in the registry, for example, in a CI/CD pipeline deployed in production. This REST API provides create, read, update, and delete operations for artifacts, versions, metadata, and rules stored in the registry. For detailed information, see the <a href="files/registry-rest-api.htm">Apicurio Registry REST API documentation</a>.</p>
+</div>
+<div class="paragraph">
+<p>This section shows a simple curl-based example of using the Registry REST API to add and retrieve an Apache Avro schema artifact in the registry.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+When adding artifacts in Apicurio Registry using the REST API, if you do not specify a unique artifact ID, Apicurio Registry generates one automatically as a UUID.
+</td>
+</tr>
+</table>
+</div>
+<div class="ulist">
+<div class="title">Prerequisites</div>
+<ul>
+<li>
+<p>See <a href="#registry-rest-api">[registry-rest-api]</a>.</p>
+</li>
+<li>
+<p>Apicurio Registry must be installed and running in your environment. For details, see <a href="#installing-the-registry">[installing-the-registry]</a>.</p>
+</li>
+</ul>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Add an artifact in the registry using the <code>/artifacts</code> operation. The following example <code>curl</code> command adds a simple artifact for a share price application:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl -X POST -H "Content-type: application/json; artifactType=AVRO" -H "X-Registry-ArtifactId: share-price" --data '{"type":"record","name":"price","namespace":"com.example","fields":[{"name":"symbol","type":"string"},{"name":"price","type":"string"}]}' http://MY-REGISTRY-HOST/api/artifacts</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This example shows adding an Avro schema artifact with an artifact ID of <code>share-price</code>.</p>
+</div>
+<div class="paragraph">
+<p><code>MY-REGISTRY-HOST</code> is the host name on which Apicurio Registry is deployed. For example: <code>http://localhost:8080/api/artifacts</code>.</p>
+</div>
+</li>
+<li>
+<p>Verify that the response includes the expected JSON body to confirm that the artifact was added. For example:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">{"createdOn":1578310374517,"modifiedOn":1578310374517,"id":"share-price","version":1,"type":"AVRO","globalId":8}</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Retrieve the artifact from the registry using its artifact ID. For example, in this case the specified ID is <code>share-price</code>:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl https://MY-REGISTRY-URL/api/artifacts/share-price
+'{"type":"record","name":"price","namespace":"com.example","fields":[{"name":"symbol","type":"string"},{"name":"price","type":"string"}]}</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="ulist">
+<div class="title">Additional resources</div>
+<ul>
+<li>
+<p>For more REST API sample requests, see the <a href="files/registry-rest-api.htm">Registry REST API documentation</a>.</p>
+</li>
+</ul>
+</div>
+</article>
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+  </div>
+</main>
+</div>
+<footer class="footer">
+</footer>
+<script src="../../../_/js/site.js"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>

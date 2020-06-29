@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Installing Apicurio Registry :: Apicurio Registry</title>
+    <link rel="canonical" href="https://pwright.github.io/apicurio-registry/html/apicurio-registry/assemblies/getting-started/as_installing-the-registry.html">
+    <meta name="generator" content="Antora 2.3.3">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://pwright.github.io/apicurio-registry/html"><img  style="height:60px" src="../../../_/img/logo.png">Apicurio Registry</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="#">Home</a>
+        <div class="navbar-item has-dropdown is-hoverable">
+         
+        </div>
+        <div class="navbar-item">
+          <span class="control">
+            <a class="#button is-primary" href="#"></a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="apicurio-registry" data-version="master">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../../index.html">Apicurio Registry</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../index.html"> Home</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Apicurio Registry</span>
+    <span class="version">master</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <span class="title">Apicurio Registry</span>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../../index.html">master</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../../index.html">Apicurio Registry</a></li>
+    <li><a href="as_installing-the-registry.html">Installing Apicurio Registry</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="file:///home/pwright/repos/a/apicurio-registry/antora/modules/ROOT/pages/assemblies/getting-started/as_installing-the-registry.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<article class="doc">
+<h1 class="page">Installing Apicurio Registry</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This chapter explains how to install and run Apicurio Registry with the following storage options:</p>
+</div>
+<div class="ulist">
+<div class="title">Docker</div>
+<ul>
+<li>
+<p><a href="#installing-registry-in-memory-storage">Installing Apicurio Registry with in-memory storage</a></p>
+</li>
+<li>
+<p><a href="#installing-registry-jpa-storage">Installing Apicurio Registry with JPA storage</a></p>
+</li>
+<li>
+<p><a href="#installing-registry-kafka-storage">Installing Apicurio Registry with Apache Kafka storage</a></p>
+</li>
+<li>
+<p><a href="#installing-registry-kafka-streams-storage">Installing Apicurio Registry with Apache Kafka Streams storage</a></p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">OpenShift</div>
+<ul>
+<li>
+<p><a href="#installing-registry-operatorhub">Installing Apicurio Registry from the OpenShift OperatorHub</a></p>
+</li>
+<li>
+<p><a href="#installing-kafka-streams-operatorhub">Installing {kafka-streams} from the OpenShift OperatorHub</a></p>
+</li>
+<li>
+<p><a href="#setting-up-kafka-streams-storage">Configuring Apicurio Registry storage in {kafka-streams}</a></p>
+</li>
+<li>
+<p><a href="#installing-postgresql-operatorhub">Installing a PostgreSQL database from the OpenShift OperatorHub</a></p>
+</li>
+<li>
+<p><a href="#setting-up-postgresql-storage">Configuring Apicurio Registry storage in a PostgreSQL database</a></p>
+</li>
+<li>
+<p><a href="#setting-up-infinispan-storage">Configuring Apicurio Registry storage in embedded Infinispan</a></p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Prerequisites</div>
+<ul>
+<li>
+<p><a href="#registry-overview">[registry-overview]</a></p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Additional resources</div>
+<ul>
+<li>
+<p>For details on building from source, see <a href="https://github.com/Apicurio/apicurio-registry" class="bare">https://github.com/Apicurio/apicurio-registry</a>.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+You can install more than one instance of Apicurio Registry depending on your environment. The number of instances depends on your storage option, for example, Kafka, Infinispan, or database cluster configuration, and on the number and type of artifacts stored in the registry.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="installing-registry-in-memory-storage"><a class="anchor" href="#installing-registry-in-memory-storage"></a>Installing Apicurio Registry with in-memory storage</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section explains how to install and run Apicurio Registry with simple in-memory storage from a container image.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The in-memory storage option is suitable for development only. All data is lost when the container image is restarted.
+</td>
+</tr>
+</table>
+</div>
+<div class="ulist">
+<div class="title">Prerequisites</div>
+<ul>
+<li>
+<p>You must have Docker installed and the Docker daemon running.</p>
+</li>
+<li>
+<p>Ensure that you can connect to the container repository: <a href="https://hub.docker.com/r/apicurio/apicurio-registry-mem" class="bare">https://hub.docker.com/r/apicurio/apicurio-registry-mem</a>.</p>
+</li>
+</ul>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Get the Apicurio Registry container image:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ docker pull apicurio/apicurio-registry-mem</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Run the container image:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ docker run -it -p 8080:8080 apicurio/apicurio-registry-mem:latest</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Send a test request using the Apicurio Registry REST API. For example, enter the following <code>curl</code> command to create a simple Avro schema artifact for a share price application in the registry:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl -X POST -H "Content-type: application/json; artifactType=AVRO" -H "X-Registry-ArtifactId: share-price" --data '{"type":"record","name":"price","namespace":"com.example","fields":[{"name":"symbol","type":"string"},{"name":"price","type":"string"}]}' http://localhost:8080/api/artifacts</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Verify that the response includes the expected JSON body to confirm that the Avro schema artifact was created in the registry. For example:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">{"createdOn":1578310374517,"modifiedOn":1578310374517,"id":"share-price","version":1,"type":"AVRO","globalId":8}</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="ulist">
+<div class="title">Additional resources</div>
+<ul>
+<li>
+<p>For more REST API sample requests, see the <a href="files/registry-rest-api.htm">Registry REST API documentation</a>.</p>
+</li>
+<li>
+<p>For a demo based on Kafka Streams storage, see <a href="https://github.com/Apicurio/apicurio-registry-demo" class="bare">https://github.com/Apicurio/apicurio-registry-demo</a>.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="installing-registry-jpa-storage"><a class="anchor" href="#installing-registry-jpa-storage"></a>Installing Apicurio Registry with JPA storage</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section explains how to install and run Apicurio Registry with Java Persistence API storage from a container image. This storage option is suitable for production environments.</p>
+</div>
+<div class="ulist">
+<div class="title">Prerequisites</div>
+<ul>
+<li>
+<p>You must have Docker installed and the Docker daemon running.</p>
+</li>
+<li>
+<p>Ensure that you can connect to the container repository: <a href="https://hub.docker.com/r/apicurio/apicurio-registry-jpa" class="bare">https://hub.docker.com/r/apicurio/apicurio-registry-jpa</a>.</p>
+</li>
+<li>
+<p>You must already have a PostgreSQL database server installed and running. For example:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ postgres -D /usr/local/pgsql/data</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For more details, see <a href="https://www.postgresql.org/docs/12/server-start.html" class="bare">https://www.postgresql.org/docs/12/server-start.html</a></p>
+</div>
+</li>
+</ul>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Get the Apicurio Registry container image:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ docker pull apicurio/apicurio-registry-jpa</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Run the container image and specify the database connection URL and credentials for the PostgreSQL server as environment variables:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ docker run -it -p 8080:8080 \
+-e "QUARKUS_DATASOURCE_URL=jdbc:postgresql://postgres/apicurio-registry" \
+-e "QUARKUS_DATASOURCE_USERNAME=apicurio-registry" \
+-e "QUARKUS_DATASOURCE_PASSWORD=password" \
+apicurio/apicurio-registry-jpa:latest</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Send a test request using the Apicurio Registry REST API. For example, enter the following <code>curl</code> command to create a simple Avro schema artifact for a share price application in the registry:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl -X POST -H "Content-type: application/json; artifactType=AVRO" -H "X-Registry-ArtifactId: share-price" --data '{"type":"record","name":"price","namespace":"com.example","fields":[{"name":"symbol","type":"string"},{"name":"price","type":"string"}]}' http://localhost:8080/api/artifacts</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Verify that the response includes the expected JSON body to confirm that the Avro schema artifact was created in the registry. For example:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">{"createdOn":1578310374517,"modifiedOn":1578310374517,"id":"share-price","version":1,"type":"AVRO","globalId":8}</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="ulist">
+<div class="title">Additional resources</div>
+<ul>
+<li>
+<p>For more REST API sample requests, see the <a href="files/registry-rest-api.htm">Registry REST API documentation</a>.</p>
+</li>
+<li>
+<p>For more details on PostgreSQL, see the <a href="https://www.postgresql.org/docs/12/index.html">PostgreSQL documentation</a>.</p>
+</li>
+<li>
+<p>For a demo based on Kafka Streams storage, see <a href="https://github.com/Apicurio/apicurio-registry-demo" class="bare">https://github.com/Apicurio/apicurio-registry-demo</a>.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="installing-registry-kafka-storage"><a class="anchor" href="#installing-registry-kafka-storage"></a>Installing Apicurio Registry with Apache Kafka storage</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This topic explains how to install and run Apicurio Registry with Kafka storage from a container image. This storage option is suitable for production environments.</p>
+</div>
+<div class="paragraph">
+<p>The following Kafka-based systems are supported:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Apache Kafka 2.2.x</p>
+</li>
+<li>
+<p>Apache Kafka 2.3</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Prerequisites</div>
+<ul>
+<li>
+<p>You must have Docker installed and the Docker daemon running.</p>
+</li>
+<li>
+<p>Ensure that you can connect to the container repository: <a href="https://hub.docker.com/r/apicurio/apicurio-registry-kafka" class="bare">https://hub.docker.com/r/apicurio/apicurio-registry-kafka</a>.</p>
+</li>
+<li>
+<p>Ensure that <code>KAFKA_HOME</code> is set to the location of your Kafka-based system.</p>
+</li>
+<li>
+<p>You must already have your Kafka broker running. For example:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$KAFKA_HOME/bin/zookeeper-server-start.sh $KAFKA_HOME/config/zookeeper.properties &amp;
+$KAFKA_HOME/bin/kafka-server-start.sh $KAFKA_HOME/config/server.properties &amp;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For more details, see <a href="https://kafka.apache.org/quickstart" class="bare">https://kafka.apache.org/quickstart</a>.</p>
+</div>
+</li>
+</ul>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Get the Apicurio Registry container image:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ docker pull apicurio/apicurio-registry-kafka</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Run the container image and specify the following environment variable for your Kafka system:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>KAFKA_BOOTSTRAP_SERVERS</code> - The address(es) of your Kafka broker(s).</p>
+<div class="paragraph">
+<p>For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ docker run -it -p 8080:8080 -e "KAFKA_BOOTSTRAP_SERVERS=kafka:9092" apicurio/apicurio-registry-kafka:latest</code></pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Send a test request using the Apicurio Registry REST API. For example, enter the following <code>curl</code> command to create a simple Avro schema artifact for a share price application in the registry:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl -X POST -H "Content-type: application/json; artifactType=AVRO" -H "X-Registry-ArtifactId: share-price" --data '{"type":"record","name":"price","namespace":"com.example","fields":[{"name":"symbol","type":"string"},{"name":"price","type":"string"}]}' http://localhost:8080/api/artifacts</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Verify that the response includes the expected JSON body to confirm that the Avro schema artifact was created in the registry. For example:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">{"createdOn":1578310374517,"modifiedOn":1578310374517,"id":"share-price","version":1,"type":"AVRO","globalId":8}</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="ulist">
+<div class="title">Additional resources</div>
+<ul>
+<li>
+<p>For more REST API sample requests, see the <a href="files/registry-rest-api.htm">Registry REST API documentation</a>.</p>
+</li>
+<li>
+<p>For a demo based on Kafka Streams storage, see <a href="https://github.com/Apicurio/apicurio-registry-demo" class="bare">https://github.com/Apicurio/apicurio-registry-demo</a>.</p>
+</li>
+<li>
+<p>For more details on Apache Kafka, see <a href="https://kafka.apache.org/documentation/" class="bare">https://kafka.apache.org/documentation/</a>.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="installing-registry-kafka-streams-storage"><a class="anchor" href="#installing-registry-kafka-streams-storage"></a>Installing Apicurio Registry with Apache Kafka Streams storage</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This topic explains how to install and run Apicurio Registry with Kafka Streams storage from a container image. This storage option is suitable for production environments.</p>
+</div>
+<div class="ulist">
+<div class="title">Prerequisites</div>
+<ul>
+<li>
+<p>You must have Docker installed and the Docker daemon running.</p>
+</li>
+<li>
+<p>Ensure that you can connect to the container repository: <a href="https://hub.docker.com/r/apicurio/apicurio-registry-streams" class="bare">https://hub.docker.com/r/apicurio/apicurio-registry-streams</a>.</p>
+</li>
+<li>
+<p>Ensure that <code>KAFKA_HOME</code> is set to the location of your Kafka-based system.</p>
+</li>
+<li>
+<p>You must already have a Kafka broker running. For example:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$KAFKA_HOME/bin/zookeeper-server-start.sh $KAFKA_HOME/config/zookeeper.properties &amp;
+$KAFKA_HOME/bin/kafka-server-start.sh $KAFKA_HOME/config/server.properties &amp;</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>You must have created the following topics for Kafka Streams storage:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$KAFKA_HOME/bin/kafka-topics.sh --zookeeper localhost --create --topic storage-topic --partitions 1 --replication-factor 1  --config cleanup.policy=compact
+$KAFKA_HOME/bin/kafka-topics.sh --zookeeper localhost --create --topic global-id-topic --partitions 1 --replication-factor 1 --config cleanup.policy=compact</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For more details, see <a href="https://kafka.apache.org/quickstart" class="bare">https://kafka.apache.org/quickstart</a>.</p>
+</div>
+</li>
+</ul>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Get the Apicurio Registry container image:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ docker pull apicurio/apicurio-registry-kafka-streams</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Run the container image and specify the following environment variables for your Kafka system:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>KAFKA_BOOTSTRAP_SERVERS</code> - The address(es) of your Kafka broker(s).</p>
+</li>
+<li>
+<p><code>APPLICATION_ID</code> - The name of your Kafka Streams application.</p>
+<div class="paragraph">
+<p>For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ docker run -it -p 8080:8080 -e "KAFKA_BOOTSTRAP_SERVERS=kafka:9092" -e "APPLICATION_ID=my-kafka-streams-app" apicurio/apicurio-registry-kafka-streams:latest</code></pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Send a test request using the Apicurio Registry REST API. For example, enter the following <code>curl</code> command to create a simple Avro schema artifact for a share price application in the registry:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl -X POST -H "Content-type: application/json; artifactType=AVRO" -H "X-Registry-ArtifactId: share-price" --data '{"type":"record","name":"price","namespace":"com.example","fields":[{"name":"symbol","type":"string"},{"name":"price","type":"string"}]}' http://localhost:8080/api/artifacts</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Verify that the response includes the expected JSON body to confirm that the Avro schema artifact was created in the registry. For example:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">{"createdOn":1578310374517,"modifiedOn":1578310374517,"id":"prices-value","version":1,"type":"AVRO","globalId":8}</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="ulist">
+<div class="title">Additional resources</div>
+<ul>
+<li>
+<p>For more REST API sample requests, see the <a href="files/registry-rest-api.htm">Registry REST API documentation</a>.</p>
+</li>
+<li>
+<p>For a demo based on Kafka Streams storage, see <a href="https://github.com/Apicurio/apicurio-registry-demo" class="bare">https://github.com/Apicurio/apicurio-registry-demo</a>.</p>
+</li>
+<li>
+<p>For more details on Kafka Streams, see the <a href="https://kafka.apache.org/documentation/streams//">Apache Kafka Streams documentation</a>.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="installing-registry-operatorhub"><a class="anchor" href="#installing-registry-operatorhub"></a>Installing Apicurio Registry from the OpenShift OperatorHub</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can install the Apicurio Registry Operator on your OpenShift cluster from the OperatorHub. The OperatorHub is available from the OpenShift Container Platform web console and provides an interface for cluster administrators to discover and install Operators. For more details, see the <a href="https://docs.openshift.com/container-platform/4.3/operators/olm-understanding-operatorhub.html">OpenShift documentation</a>.</p>
+</div>
+<div class="ulist">
+<div class="title">Prerequisites</div>
+<ul>
+<li>
+<p>You must have cluster administrator access to an OpenShift cluster.</p>
+</li>
+</ul>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>In the OpenShift Container Platform web console, log in using an account with cluster administrator privileges.</p>
+</li>
+<li>
+<p>Create a new OpenShift project:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>In the left navigation menu, click <strong>Home</strong> &gt; <strong>Project</strong> &gt; <strong>Create Project</strong>.</p>
+</li>
+<li>
+<p>Enter a project name, for example, <code>my-project</code>, and click <strong>Create</strong>.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>In the left navigation menu, click <strong>Catalog</strong> &gt; <strong>OperatorHub</strong>.</p>
+</li>
+<li>
+<p>In the <strong>Filter by keyword</strong> text box, enter <code>Registry</code> to find the <strong>Apicurio Registry Operator</strong>.</p>
+</li>
+<li>
+<p>Read the information about the Operator, and click <strong>Install</strong>. This displays the <strong>Create Operator Subscription</strong> page.</p>
+</li>
+<li>
+<p>Select your subscription settings, for example:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Installation Mode</strong> &gt; <strong>A specific namespace on the cluster</strong> &gt; <strong>my-project</strong></p>
+</li>
+<li>
+<p><strong>Update Channel</strong> &gt; <strong>serviceregistry-1.0</strong></p>
+</li>
+<li>
+<p><strong>Approval Strategy</strong> &gt; <strong>Automatic</strong></p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The <strong>Installation mode</strong> &gt; <strong>All namespaces on the cluster</strong> and <strong>Approval Strategy</strong> &gt; <strong>Manual</strong> settings are also available if required by your environment.
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Click <strong>Subscribe</strong>. This displays the <strong>Operators</strong> &gt; <strong>Installed Operators</strong> page.</p>
+</li>
+<li>
+<p>Wait a few moments until the <strong>Status</strong> for the Apicurio Registry Operator displays <strong>Succeeded</strong> and the subscription is <strong>Up to Date</strong>.</p>
+</li>
+</ol>
+</div>
+<div class="ulist">
+<div class="title">Additional resources</div>
+<ul>
+<li>
+<p><a href="https://docs.openshift.com/container-platform/{registry-ocp-version}/operators/olm-adding-operators-to-cluster.html">Adding Operators to an OpenShift cluster</a></p>
+</li>
+<li>
+<p><a href="https://github.com/Apicurio/apicurio-registry-operator">Apicurio Registry Operator community in GitHub</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="installing-kafka-streams-operatorhub"><a class="anchor" href="#installing-kafka-streams-operatorhub"></a>Installing {kafka-streams} from the OpenShift OperatorHub</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If you do not already have {kafka-streams} or a compatible Kafka system installed, you can install the {kafka-streams} Operator on your OpenShift cluster from the OperatorHub. The OperatorHub is available from the OpenShift Container Platform web console and provides an interface for cluster administrators to discover and install Operators. For more details, see the <a href="https://docs.openshift.com/container-platform/4.3/operators/olm-understanding-operatorhub.html">OpenShift documentation</a>.</p>
+</div>
+<div class="ulist">
+<div class="title">Prerequisites</div>
+<ul>
+<li>
+<p>You must have cluster administrator access to an OpenShift cluster</p>
+</li>
+</ul>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>In the OpenShift Container Platform web console, log in using an account with cluster administrator privileges.</p>
+</li>
+<li>
+<p>Change to the OpenShift project in which Apicurio Registry is installed. For example, from the <strong>Project</strong> drop-down, select <code>my-project</code>.</p>
+</li>
+<li>
+<p>In the left navigation menu, click <strong>Catalog</strong> &gt; <strong>OperatorHub</strong>.</p>
+</li>
+<li>
+<p>In the <strong>Filter by keyword</strong> text box, enter <code>Strimzi</code> to find the <strong>{kafka-streams}</strong> Operator.</p>
+</li>
+<li>
+<p>Read the information about the Operator, and click <strong>Install</strong>. This displays the <strong>Create Operator Subscription</strong> page.</p>
+</li>
+<li>
+<p>Select your subscription settings, for example:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Installation Mode</strong> &gt; <strong>A specific namespace on the cluster</strong> &gt; <strong>my-project</strong></p>
+</li>
+<li>
+<p><strong>Update Channel</strong> &gt; <strong>amq-streams-1.5.x</strong></p>
+</li>
+<li>
+<p><strong>Approval Strategy</strong> &gt; <strong>Automatic</strong></p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The <strong>Installation mode</strong> &gt; <strong>All namespaces on the cluster</strong> and <strong>Approval Strategy</strong> &gt; <strong>Manual</strong> settings are also available if required by your environment.
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Click <strong>Subscribe</strong>. This displays the <strong>Operators</strong> &gt; <strong>Installed Operators</strong> page.</p>
+</li>
+<li>
+<p>Wait a few moments until the <strong>Status</strong> for the {kafka-streams} Operator displays <strong>Succeeded</strong> and the subscription is <strong>Up to Date</strong>.</p>
+</li>
+</ol>
+</div>
+<div class="ulist">
+<div class="title">Additional resources</div>
+<ul>
+<li>
+<p><a href="https://docs.openshift.com/container-platform/{registry-ocp-version}/operators/olm-adding-operators-to-cluster.html">Adding Operators to an OpenShift cluster</a></p>
+</li>
+<li>
+<p><a href="https://access.redhat.com/documentation/en-us/red_hat_amq/{amq-version}/html/using_amq_streams_on_openshift/index?">Using AMQ Streams on OpenShift</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="setting-up-kafka-streams-storage"><a class="anchor" href="#setting-up-kafka-streams-storage"></a>Configuring Apicurio Registry storage in {kafka-streams}</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section explains how to configure Kafka-based storage for Apicurio Registry on OpenShift using {kafka-streams}. This storage option is suitable for production environments when <code>persistent</code> storage is configured for the Kafka cluster on OpenShift. You can install Apicurio Registry in an existing Kafka cluster or create a new Kafka cluster, depending on your environment.</p>
+</div>
+<div class="ulist">
+<div class="title">Prerequisites</div>
+<ul>
+<li>
+<p>You must have an OpenShift cluster with cluster administrator access.</p>
+</li>
+<li>
+<p>You must have already installed Apicurio Registry. See <a href="#installing-registry-operatorhub">Installing Apicurio Registry from the OpenShift OperatorHub</a>.</p>
+</li>
+<li>
+<p>You must have already installed {kafka-streams} or a compatible Kafka-based system. See <a href="#installing-kafka-streams-operatorhub">Installing {kafka-streams} from the OpenShift OperatorHub</a>.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If you have deployed a Kafka-based cluster in another way, you can still use your Kafka cluster with the Apicurio Registry Operator, but you must create the required Kafka topics manually.
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ul>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>If you do not already have a Kafka cluster configured, create a new Kafka cluster with {kafka-streams}. For example, in the OpenShift OperatorHub:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Click <strong>Installed Operators</strong> &gt; <strong>{kafka-streams}</strong>.</p>
+</li>
+<li>
+<p>Under <strong>Provided APIs</strong> &gt; <strong>Kafka</strong>, click <strong>Create Instance</strong> to create a new Kafka cluster.</p>
+</li>
+<li>
+<p>Edit the custom resource definition as appropriate, and click <strong>Create</strong>.</p>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+The default example creates a cluster with 3 Zookeeper nodes and 3 Kafka nodes with <code>ephemeral</code> storage. This temporary storage is suitable for development and testing only, and not for production. For more details, see <a href="https://access.redhat.com/documentation/en-us/red_hat_amq/{amq-version}/html/using_amq_streams_on_openshift/index?">Using AMQ Streams on OpenShift</a>.
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>After the cluster is ready, click <strong>Provided APIs</strong> &gt; <strong>Kafka</strong> &gt; <strong>my-cluster</strong> &gt; <strong>YAML</strong>.</p>
+</li>
+<li>
+<p>In the <code>status</code> block, make a copy of the <code>bootstrapServers</code> value, which you will use later to deploy Apicurio Registry. For example:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">status:
+  conditions:
+  ...
+  listeners:
+    - addresses:
+        - host: my-cluster-kafka-bootstrap.my-project.svc
+          port: 9092
+      bootstrapServers: 'my-cluster-kafka-bootstrap.my-project.svc:9092'
+      type: plain
+  ...</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create a Kafka topic to store the Apicurio Registry artifacts:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Under <strong>Provided APIs</strong> &gt; <strong>Kafka Topic</strong>, click <strong>Create topic</strong>.</p>
+</li>
+<li>
+<p>Change the default topic name from <code>my-topic</code> to the required <code>storage-topic</code>.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Create a Kafka topic to store the Apicurio Registry global IDs:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Under <strong>Provided APIs</strong> &gt; <strong>Kafka Topic</strong>, click <strong>Create topic</strong>.</p>
+</li>
+<li>
+<p>Change the default topic name from <code>my-topic</code> to the required <code>global-id-topic</code>.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Click <strong>Installed Operators</strong> &gt; <strong>Apicurio Registry</strong> &gt; <strong>ApicurioRegistry</strong> &gt; <strong>Create ApicurioRegistry</strong>.</p>
+</li>
+<li>
+<p>Paste in the following custom resource definition, but use your <code>bootstrapServers</code> value that you copied earlier:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: apicur.io/v1alpha1
+kind: ApicurioRegistry
+metadata:
+  name: example-apicurioregistry
+spec:
+  configuration:
+    persistence: "streams"
+    streams:
+      bootstrapServers: "my-cluster-kafka-bootstrap.my-project.svc:9092"</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Click <strong>Create</strong> and wait for the Apicurio Registry route to be created on OpenShift.</p>
+</li>
+<li>
+<p>Click <strong>Networking</strong> &gt; <strong>Route</strong> to access the new route for the Apicurio Registry web console. For example:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>http://example-apicurioregistry.my-project.my-domain-name.com/</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<div class="title">Additional resources</div>
+<p>For more details on installing Strimzi and on creating Kafka clusters and topics, see <a href="https://strimzi.io/docs/overview/latest/" class="bare">https://strimzi.io/docs/overview/latest/</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="setting-up-infinispan-storage"><a class="anchor" href="#setting-up-infinispan-storage"></a>Configuring Apicurio Registry storage in embedded Infinispan</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section explains how to configure Infinispan cache-based storage for Apicurio Registry on OpenShift. This storage option is based on Infinispan community Java libraries embedded in the Quarkus-based Apicurio Registry server. You do not need to install a separate Infinispan server using this storage option. This option is suitable for development or demonstration only, and is not suitable for production environments.</p>
+</div>
+<div class="ulist">
+<div class="title">Prerequisites</div>
+<ul>
+<li>
+<p>You must have an OpenShift cluster with cluster administrator access.</p>
+</li>
+<li>
+<p>You must have already installed Apicurio Registry. See <a href="#installing-registry-operatorhub">Installing Apicurio Registry from the OpenShift OperatorHub</a>.</p>
+</li>
+</ul>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Click <strong>Installed Operators</strong> &gt; <strong>Apicurio Registry</strong> &gt; <strong>ApicurioRegistry</strong> &gt; <strong>Create ApicurioRegistry</strong>.</p>
+</li>
+<li>
+<p>Paste in the following custom resource definition:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: apicur.io/v1alpha1
+kind: ApicurioRegistry
+metadata:
+  name: example-apicurioregistry
+spec:
+  configuration:
+    persistence: "infinispan"
+    infinispan: # Currently uses embedded version of Infinispan
+      clusterName: "example-apicurioregistry"
+      # ^ Optional</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Click <strong>Create</strong> and wait for the Apicurio Registry route to be created on OpenShift.</p>
+</li>
+<li>
+<p>Click <strong>Networking</strong> &gt; <strong>Route</strong> to access the new route for the Apicurio Registry web console. For example:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>http://example-apicurioregistry.my-project.my-domain-name.com/</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="ulist">
+<div class="title">Additional resources</div>
+<ul>
+<li>
+<p>For more details on configuring Infinispan clusters, see the example custom resources available from the <a href="https://github.com/Apicurio/apicurio-registry-demo/blob/master/kubernetes/resources-infinispan.yaml">Apicurio Registry demonstration</a>.</p>
+</li>
+<li>
+<p>For more details on Infinispan, see <a href="https://infinispan.org/" class="bare">https://infinispan.org/</a>.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="installing-postgresql-operatorhub"><a class="anchor" href="#installing-postgresql-operatorhub"></a>Installing a PostgreSQL database from the OpenShift OperatorHub</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If you do not already have a PostgreSQL database installed, you can install a PostgreSQL Operator on your OpenShift cluster from the OperatorHub. The OperatorHub is available from the OpenShift Container Platform web console and provides an interface for cluster administrators to discover and install Operators. For more details, see the <a href="https://docs.openshift.com/container-platform/4.3/operators/olm-understanding-operatorhub.html">OpenShift documentation</a>.</p>
+</div>
+<div class="ulist">
+<div class="title">Prerequisites</div>
+<ul>
+<li>
+<p>You must have cluster administrator access to an OpenShift cluster.</p>
+</li>
+</ul>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>In the OpenShift Container Platform web console, log in using an account with cluster administrator privileges.</p>
+</li>
+<li>
+<p>Create a new OpenShift project:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>In the left navigation menu, click <strong>Home</strong> &gt; <strong>Project</strong> &gt; <strong>Create Project</strong>.</p>
+</li>
+<li>
+<p>Enter a project name, for example, <code>my-project</code>, and click <strong>Create</strong>.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>In the left navigation menu, click <strong>Catalog</strong> &gt; <strong>OperatorHub</strong>.</p>
+</li>
+<li>
+<p>In the <strong>Filter by keyword</strong> text box, enter <code>PostgreSQL</code> to find an Operator suitable for your environment, for example, <strong>Crunchy PostgreSQL for OpenShift</strong> or <strong>PostgreSQL Operator by Dev4Ddevs.com</strong>.</p>
+</li>
+<li>
+<p>Read the information about the Operator, and click <strong>Install</strong>. This displays the <strong>Create Operator Subscription</strong> page.</p>
+</li>
+<li>
+<p>Select your subscription settings, for example:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Installation Mode</strong> &gt; <strong>A specific namespace on the cluster</strong> &gt; <strong>my-project</strong></p>
+</li>
+<li>
+<p><strong>Update Channel</strong> &gt; <strong>stable</strong></p>
+</li>
+<li>
+<p><strong>Approval Strategy</strong> &gt; <strong>Automatic</strong></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Click <strong>Subscribe</strong>. This displays the <strong>Operators</strong> &gt; <strong>Installed Operators</strong> page.</p>
+</li>
+<li>
+<p>Wait a few moments until the <strong>Status</strong> for the Apicurio Registry Operator displays <strong>Succeeded</strong> and the subscription is <strong>Up to Date</strong>.</p>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+You must read the documentation from your chosen <strong>PostgreSQL</strong> Operator for details on how to create and manage your database.
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ol>
+</div>
+<div class="ulist">
+<div class="title">Additional resources</div>
+<ul>
+<li>
+<p><a href="https://docs.openshift.com/container-platform/{registry-ocp-version}/operators/olm-adding-operators-to-cluster.html">Adding Operators to an OpenShift cluster</a></p>
+</li>
+<li>
+<p><a href="https://access.crunchydata.com/documentation/postgres-operator/4.3.2/quickstart/">Crunchy PostgreSQL Operator QuickStart</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="setting-up-postgresql-storage"><a class="anchor" href="#setting-up-postgresql-storage"></a>Configuring Apicurio Registry storage in a PostgreSQL database</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section explains how to configure Java Persistence API-based storage for Apicurio Registry on OpenShift using a PostgreSQL database Operator. You can install Apicurio Registry in an existing database or create a new database, depending on your environment.</p>
+</div>
+<div class="ulist">
+<div class="title">Prerequisites</div>
+<ul>
+<li>
+<p>You must have an OpenShift cluster with cluster administrator access.</p>
+</li>
+<li>
+<p>You must have already installed Apicurio Registry. See <a href="#installing-registry-operatorhub">Installing Apicurio Registry from the OpenShift OperatorHub</a>.</p>
+</li>
+<li>
+<p>You must have already installed a PostgreSQL database Operator. See <a href="#installing-postgresql-operatorhub">Installing a PostgreSQL database from the OpenShift OperatorHub</a>.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If you have deployed a PostgreSQL database in another way, you can still use your database with the Apicurio Registry Operator, but you must create the required database configuration manually. See your PostgreSQL documentation for details.
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ul>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Create a PostgreSQL database for your Apicurio Registry storage. For example, click <strong>Installed Operators</strong> &gt; <strong>PostgreSQL Operator by Dev4Ddevs.com</strong> &gt; <strong>Create database</strong> &gt; <strong>YAML</strong>.</p>
+</li>
+<li>
+<p>Edit the database name to <code>registry</code> and edit any other database settings as needed depending on your environment, for example:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: postgresql.dev4devs.com/v1alpha1
+kind: Database
+metadata:
+  name: registry
+  namespace: my-project
+spec:
+  databaseCpu: 30m
+  databaseCpuLimit: 60m
+  databaseMemoryLimit: 512Mi
+  databaseMemoryRequest: 128Mi
+  databaseName: example
+  databaseNameKeyEnvVar: POSTGRESQL_DATABASE
+  databasePassword: postgres
+  databasePasswordKeyEnvVar: POSTGRESQL_PASSWORD
+  databaseStorageRequest: 1Gi
+  databaseUser: postgres
+  databaseUserKeyEnvVar: POSTGRESQL_USER
+  image: centos/postgresql-96-centos7
+  size: 1</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Click <strong>Create Database</strong>, and wait until the database is created.</p>
+</li>
+<li>
+<p>Click <strong>Installed Operators</strong> &gt; <strong>Apicurio Registry</strong> &gt; <strong>ApicurioRegistry</strong> &gt; <strong>Create ApicurioRegistry</strong>.</p>
+</li>
+<li>
+<p>Paste in the following custom resource definition, and edit the database <code>url</code> and credentials to suit your environment:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: apicur.io/v1alpha1
+kind: ApicurioRegistry
+metadata:
+  name: example-apicurioregistry
+spec:
+  configuration:
+    persistence: "jpa"
+    dataSource:
+      url: "jdbc:postgresql://SERVICE_NAME.NAMESPACE.svc:5432/DATABASE_NAME"
+      # e.g. url: "jdbc:postgresql://acid-minimal-cluster.my-project.svc:5432/registry"
+      userName: "postgres"
+      password: "PASSWORD"
+      # ^ Optional</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Click <strong>Create</strong> and wait for the Apicurio Registry route to be created on OpenShift.</p>
+</li>
+<li>
+<p>Click <strong>Networking</strong> &gt; <strong>Route</strong> to access the new route for the Apicurio Registry web console. For example:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>http://example-apicurioregistry.my-project.my-domain-name.com/</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="ulist">
+<div class="title">Additional resources</div>
+<ul>
+<li>
+<p><a href="https://access.crunchydata.com/documentation/postgres-operator/4.3.2/quickstart/">Crunchy PostgreSQL Operator QuickStart</a></p>
+</li>
+<li>
+<p><a href="https://github.com/Apicurio/apicurio-registry-operator/blob/master/docs/minikube-quickstart.md">Apicurio Registry Operator QuickStart</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</article>
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+  </div>
+</main>
+</div>
+<footer class="footer">
+</footer>
+<script src="../../../_/js/site.js"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>

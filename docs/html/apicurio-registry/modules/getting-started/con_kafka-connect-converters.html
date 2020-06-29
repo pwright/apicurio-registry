@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Kafka Connect converters :: Apicurio Registry</title>
+    <link rel="canonical" href="https://pwright.github.io/apicurio-registry/html/apicurio-registry/modules/getting-started/con_kafka-connect-converters.html">
+    <meta name="generator" content="Antora 2.3.3">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://pwright.github.io/apicurio-registry/html"><img  style="height:60px" src="../../../_/img/logo.png">Apicurio Registry</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="#">Home</a>
+        <div class="navbar-item has-dropdown is-hoverable">
+         
+        </div>
+        <div class="navbar-item">
+          <span class="control">
+            <a class="#button is-primary" href="#"></a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="apicurio-registry" data-version="master">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../../index.html">Apicurio Registry</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../index.html"> Home</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Apicurio Registry</span>
+    <span class="version">master</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <span class="title">Apicurio Registry</span>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../../index.html">master</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../../index.html">Apicurio Registry</a></li>
+    <li><a href="con_kafka-connect-converters.html">Kafka Connect converters</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="file:///home/pwright/repos/a/apicurio-registry/antora/modules/ROOT/pages/modules/getting-started/con_kafka-connect-converters.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<article class="doc">
+<h1 class="page">Kafka Connect converters</h1>
+<div class="imageblock">
+<div class="content">
+<img src="../../_images/images/getting-started/registry-connect-architecture.png" alt="Registry and Kafka Connect architecture">
+</div>
+<div class="title">Figure 1. Apicurio Registry and Kafka Connect architecture</div>
+</div>
+<div class="paragraph">
+<p>Apicurio Registry provides the following features for Kafka Connect:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Storage for Kafka Connect schemas</p>
+</li>
+<li>
+<p>Kafka Connect converters for Apache Avro and JSON Schema</p>
+</li>
+<li>
+<p>Registry REST API to manage schemas</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>You can use the Avro and JSON Schema converters to map Kafka Connect schemas into Avro or JSON schemas. Those schemas can then serialize message keys and values into the compact Avro binary format or human-readable JSON format. The converted JSON is also less verbose because the messages do not contain the schema information, only the schema ID.</p>
+</div>
+<div class="paragraph">
+<p>Apicurio Registry can manage and track the Avro and JSON schemas used in the Kafka topics. Because the schemas are stored in Apicurio Registry and decoupled from the message content, each message must only include a tiny schema identifier. For an I/O bound system like Kafka, this means more total throughput for producers and consumers.</p>
+</div>
+<div class="paragraph">
+<p>The Avro and JSON Schema serializers and deserializers (Serdes) provided by Apicurio Registry are also used by Kafka producers and consumers in this use case. Kafka consumer applications that you write to consume change events can use the Avro or JSON Serdes to deserialize these change events. You can install these Serdes into any Kafka-based system and use them along with Kafka Connect, and also with Kafka Connect-based systems such as Debezium and Camel Kafka Connector.</p>
+</div>
+<div class="ulist">
+<div class="title">Additional resources</div>
+<ul>
+<li>
+<p><a href="https://kafka.apache.org/documentation/#connect">Apache Kafka Connect documentation</a></p>
+</li>
+<li>
+<p><a href="https://debezium.io/blog/2020/04/09/using-debezium-wit-apicurio-api-schema-registry/">Demonstration of using Kakfa Connect with Debezium and Apicurio Registry</a></p>
+</li>
+</ul>
+</div>
+</article>
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+  </div>
+</main>
+</div>
+<footer class="footer">
+</footer>
+<script src="../../../_/js/site.js"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>

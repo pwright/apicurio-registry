@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Registry REST API :: Apicurio Registry</title>
+    <link rel="canonical" href="https://pwright.github.io/apicurio-registry/html/apicurio-registry/modules/getting-started/con_registry-rest-api.html">
+    <meta name="generator" content="Antora 2.3.3">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://pwright.github.io/apicurio-registry/html"><img  style="height:60px" src="../../../_/img/logo.png">Apicurio Registry</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="#">Home</a>
+        <div class="navbar-item has-dropdown is-hoverable">
+         
+        </div>
+        <div class="navbar-item">
+          <span class="control">
+            <a class="#button is-primary" href="#"></a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="apicurio-registry" data-version="master">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../../index.html">Apicurio Registry</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../index.html"> Home</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Apicurio Registry</span>
+    <span class="version">master</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <span class="title">Apicurio Registry</span>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../../index.html">master</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../../index.html">Apicurio Registry</a></li>
+    <li><a href="con_registry-rest-api.html">Registry REST API</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="file:///home/pwright/repos/a/apicurio-registry/antora/modules/ROOT/pages/modules/getting-started/con_registry-rest-api.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<article class="doc">
+<h1 class="page">Registry REST API</h1>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Artifacts</dt>
+<dd>
+<p>Manage the schema and API design artifacts stored in the registry. This also includes browse or search for artifacts, for example, by name, ID, description, or label. You can also manage the lifecycle state of an artifact: enabled, disabled, or deprecated.</p>
+</dd>
+<dt class="hdlist1">Artifact versions</dt>
+<dd>
+<p>Manage the versions that are created when artifact content is updated. This also includes browse or search for versions, for example, by name, ID, description, or label. You can also manage the lifecycle state of a version: enabled, disabled, or deprecated.</p>
+</dd>
+<dt class="hdlist1">Artifact metadata</dt>
+<dd>
+<p>Manage details about artifacts such as when an artifact was created or modified, its current state, and so on. Users can edit some metadata, and some is read-only. For example, editable metadata includes artifact name, description, or label, but when created and modified are read-only.</p>
+</dd>
+<dt class="hdlist1">Global rules</dt>
+<dd>
+<p>Configure rules to govern the content evolution of all artifacts to prevent invalid or incompatible content from being added to the registry. Global rules are applied only if an artifact does not have its own specific artifact rules configured.</p>
+</dd>
+<dt class="hdlist1">Artifact rules</dt>
+<dd>
+<p>Configure rules to govern the content evolution of a specific artifact to prevent invalid or incompatible content from being added to the registry. Artifact rules override any global rules configured.</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<div class="title">Compatibility with other schema registries</div>
+<p>The Registry REST API is compatible with the Confluent schema registry REST API, which includes support for Apache Avro, Google Protocol buffers, and JSON Schema artifact types. Applications using Confluent client libraries can use Apicurio Registry as a drop-in replacement instead.</p>
+</div>
+<div class="ulist">
+<div class="title">Additional resources</div>
+<ul>
+<li>
+<p>For detailed information, see the <a href="files/registry-rest-api.htm">Apicurio Registry REST API documentation</a>.</p>
+</li>
+<li>
+<p>The Registry REST API documentation is also available from the main endpoint of your Apicurio Registry deployment, for example, on <code>http://MY-REGISTRY-URL/api</code>.</p>
+</li>
+</ul>
+</div>
+</article>
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+  </div>
+</main>
+</div>
+<footer class="footer">
+</footer>
+<script src="../../../_/js/site.js"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>

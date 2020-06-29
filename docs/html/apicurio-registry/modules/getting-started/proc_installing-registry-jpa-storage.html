@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Installing Apicurio Registry with JPA storage :: Apicurio Registry</title>
+    <link rel="canonical" href="https://pwright.github.io/apicurio-registry/html/apicurio-registry/modules/getting-started/proc_installing-registry-jpa-storage.html">
+    <meta name="generator" content="Antora 2.3.3">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://pwright.github.io/apicurio-registry/html"><img  style="height:60px" src="../../../_/img/logo.png">Apicurio Registry</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="#">Home</a>
+        <div class="navbar-item has-dropdown is-hoverable">
+         
+        </div>
+        <div class="navbar-item">
+          <span class="control">
+            <a class="#button is-primary" href="#"></a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="apicurio-registry" data-version="master">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../../index.html">Apicurio Registry</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../index.html"> Home</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Apicurio Registry</span>
+    <span class="version">master</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <span class="title">Apicurio Registry</span>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../../index.html">master</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../../index.html">Apicurio Registry</a></li>
+    <li><a href="proc_installing-registry-jpa-storage.html">Installing Apicurio Registry with JPA storage</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="file:///home/pwright/repos/a/apicurio-registry/antora/modules/ROOT/pages/modules/getting-started/proc_installing-registry-jpa-storage.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<article class="doc">
+<h1 class="page">Installing Apicurio Registry with JPA storage</h1>
+<div class="paragraph">
+<p>This section explains how to install and run Apicurio Registry with Java Persistence API storage from a container image. This storage option is suitable for production environments.</p>
+</div>
+<div class="ulist">
+<div class="title">Prerequisites</div>
+<ul>
+<li>
+<p>You must have Docker installed and the Docker daemon running.</p>
+</li>
+<li>
+<p>Ensure that you can connect to the container repository: <a href="https://hub.docker.com/r/apicurio/apicurio-registry-jpa" class="bare">https://hub.docker.com/r/apicurio/apicurio-registry-jpa</a>.</p>
+</li>
+<li>
+<p>You must already have a PostgreSQL database server installed and running. For example:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ postgres -D /usr/local/pgsql/data</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For more details, see <a href="https://www.postgresql.org/docs/12/server-start.html" class="bare">https://www.postgresql.org/docs/12/server-start.html</a></p>
+</div>
+</li>
+</ul>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Get the Apicurio Registry container image:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ docker pull apicurio/apicurio-registry-jpa</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Run the container image and specify the database connection URL and credentials for the PostgreSQL server as environment variables:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ docker run -it -p 8080:8080 \
+-e "QUARKUS_DATASOURCE_URL=jdbc:postgresql://postgres/apicurio-registry" \
+-e "QUARKUS_DATASOURCE_USERNAME=apicurio-registry" \
+-e "QUARKUS_DATASOURCE_PASSWORD=password" \
+apicurio/apicurio-registry-jpa:latest</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Send a test request using the Apicurio Registry REST API. For example, enter the following <code>curl</code> command to create a simple Avro schema artifact for a share price application in the registry:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl -X POST -H "Content-type: application/json; artifactType=AVRO" -H "X-Registry-ArtifactId: share-price" --data '{"type":"record","name":"price","namespace":"com.example","fields":[{"name":"symbol","type":"string"},{"name":"price","type":"string"}]}' http://localhost:8080/api/artifacts</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Verify that the response includes the expected JSON body to confirm that the Avro schema artifact was created in the registry. For example:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">{"createdOn":1578310374517,"modifiedOn":1578310374517,"id":"share-price","version":1,"type":"AVRO","globalId":8}</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="ulist">
+<div class="title">Additional resources</div>
+<ul>
+<li>
+<p>For more REST API sample requests, see the <a href="files/registry-rest-api.htm">Registry REST API documentation</a>.</p>
+</li>
+<li>
+<p>For more details on PostgreSQL, see the <a href="https://www.postgresql.org/docs/12/index.html">PostgreSQL documentation</a>.</p>
+</li>
+<li>
+<p>For a demo based on Kafka Streams storage, see <a href="https://github.com/Apicurio/apicurio-registry-demo" class="bare">https://github.com/Apicurio/apicurio-registry-demo</a>.</p>
+</li>
+</ul>
+</div>
+</article>
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+  </div>
+</main>
+</div>
+<footer class="footer">
+</footer>
+<script src="../../../_/js/site.js"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>

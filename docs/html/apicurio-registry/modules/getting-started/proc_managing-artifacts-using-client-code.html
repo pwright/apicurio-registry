@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Managing artifacts using a Java client application :: Apicurio Registry</title>
+    <link rel="canonical" href="https://pwright.github.io/apicurio-registry/html/apicurio-registry/modules/getting-started/proc_managing-artifacts-using-client-code.html">
+    <meta name="generator" content="Antora 2.3.3">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://pwright.github.io/apicurio-registry/html"><img  style="height:60px" src="../../../_/img/logo.png">Apicurio Registry</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="#">Home</a>
+        <div class="navbar-item has-dropdown is-hoverable">
+         
+        </div>
+        <div class="navbar-item">
+          <span class="control">
+            <a class="#button is-primary" href="#"></a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="apicurio-registry" data-version="master">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../../index.html">Apicurio Registry</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../index.html"> Home</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Apicurio Registry</span>
+    <span class="version">master</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <span class="title">Apicurio Registry</span>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../../index.html">master</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../../index.html">Apicurio Registry</a></li>
+    <li><a href="proc_managing-artifacts-using-client-code.html">Managing artifacts using a Java client application</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="file:///home/pwright/repos/a/apicurio-registry/antora/modules/ROOT/pages/modules/getting-started/proc_managing-artifacts-using-client-code.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<article class="doc">
+<h1 class="page">Managing artifacts using a Java client application</h1>
+<div class="paragraph">
+<p>You can also manage artifacts in the registry using a Java client application. The Apicurio Registry Java client classes  enable you to create, read, update, or delete artifacts in the registry.</p>
+</div>
+<div class="ulist">
+<div class="title">Prerequisites</div>
+<ul>
+<li>
+<p>See <a href="#client-serde">[client-serde]</a></p>
+</li>
+<li>
+<p>You must have implemented a client application in Java that imports the Apicurio Registry client classes: <code>io.apicurio.registry.client.RegistryClient</code></p>
+</li>
+<li>
+<p>Apicurio Registry must be installed and running in your environment</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Procedure</div>
+<ul>
+<li>
+<p>Update your client application to add a new artifact in the registry. The following example shows adding an Apache Avro schema artifact from a Kafka producer client application:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">String registryUrl_node1 = PropertiesUtil.property(clientProperties, "registry.url.node1",
+  "https://my-cluster-service-registry-myproject.example.com/api"); <i class="conum" data-value="1"></i><b>(1)</b>
+   try (RegistryService service = RegistryClient.create(registryUrl_node1))
+   {
+    String artifactId = ApplicationImpl.INPUT_TOPIC + "-value";
+    try {
+     service.getArtifactMetaData(artifactId); <i class="conum" data-value="2"></i><b>(2)</b>
+    }
+    catch (WebApplicationException e) {
+     CompletionStage &lt; ArtifactMetaData &gt; csa = service.createArtifact( <i class="conum" data-value="3"></i><b>(3)</b>
+        ArtifactType.AVRO,
+        artifactId,
+         new ByteArrayInputStream(LogInput.SCHEMA$.toString().getBytes())
+        );
+    csa.toCompletableFuture().get();
+    }
+ }</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Configure the client application with the Apicurio Registry URL in the client properties. You can create properties for more than one registry node.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Check to see if the schema artifact already exists in the registry based on the artifact ID.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Add the new schema artifact in the registry.</td>
+</tr>
+</table>
+</div>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Additional resources</div>
+<ul>
+<li>
+<p>For an example Java client application, see <a href="https://github.com/Apicurio/apicurio-registry-demo" class="bare">https://github.com/Apicurio/apicurio-registry-demo</a>.</p>
+</li>
+</ul>
+</div>
+</article>
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+  </div>
+</main>
+</div>
+<footer class="footer">
+</footer>
+<script src="../../../_/js/site.js"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>
