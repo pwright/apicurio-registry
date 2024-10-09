@@ -69,7 +69,7 @@ endif::[]
 //common
 :context: registry
 :version: 2023.Q4
-:attachmentsdir: files
+:attachmentsdir: https://www.apicur.io/registry/docs/apicurio-registry/{registry-version}.x/assets-attachments
 :registry-ocp-version: 4.15
 :registry-db-version: 15
 :registry-url: \http://MY_REGISTRY_URL/ui
