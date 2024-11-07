@@ -1,0 +1,35 @@
+// Metadata created by nebel
+// ParentAssemblies: assemblies/getting-started/as_installing-the-registry.adoc
+
+[id="installing-registry-frontend_{context}"]
+= Installing {registry} frontend
+
+[role="_abstract"]
+This section explains how to install and run the {registry} frontend.
+
+.Prerequisites
+
+* You must have a {registry} backend installed and running.
+
+.Procedure
+
+. Get the {registry} container image:
++
+[source,bash]
+----
+$ docker pull apicurio/apicurio-registry-ui:VERSION
+----
++ 
+`VERSION` is the {registry} release version, for example, `{registry-docker-version}`. For more details, see https://hub.docker.com/r/apicurio/apicurio-registry-ui/tags.
+
+. Run the container image: 
++
+[source,bash]
+----
+$ docker run -it -p 8080:8080 apicurio/apicurio-registry-ui:VERSION
+----
+
+[role="_additional-resources"]
+.Additional resources
+* For more REST API sample requests, see the link:{attachmentsdir}/registry-rest-api.htm[Apicurio Registry REST API documentation].
+* For demonstration examples, see link:https://github.com/Apicurio/apicurio-registry/tree/main/examples[].
