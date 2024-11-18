@@ -1,0 +1,20 @@
+{
+    "artifactId": "mytopic-value",
+    "artifactType": "AVRO",
+    "name": "Invoice",
+    "description": "A standard Acme invoice payload.",
+    "labels": {
+      "label-1": "value-1",
+      "label-2": "value-2"
+    },
+    "firstVersion": {
+      "version": "1.0.0",
+      "content": {
+        "content": "{\"type\":\"record\",\"name\":\"ExampleType\",\"fields\":[{\"name\":\"sdfgfsdgsdg\",\"type\":\"string\"}]}",
+        "references": []
+      },
+      "name": "ExampleType",
+      "description": "A simple example of an Avro type.",
+      "labels": {}
+    }
+  }
