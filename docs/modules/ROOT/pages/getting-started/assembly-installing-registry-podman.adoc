@@ -1,0 +1,62 @@
+// Metadata created by nebel
+include::{mod-loc}shared/all-attributes.adoc[]
+
+:context: podman-install
+
+[id="installing-the-registry-podman{context}"]
+= Installing {registry} using Podman
+
+[role="_abstract"]
+This chapter explains how to install and run {registry} using Podman and then configure it for one of the following storage options:
+
+* xref:installing-registry-in-memory-storage_{context}[]
+* xref:installing-registry-sql-storage_{context}[]
+* xref:installing-registry-kafka-storage_{context}[]
+ 
+.Prerequisites
+* {registry-overview}
+
+NOTE: You can install more than one replica of {registry} depending on your environment. The number of replicas depends on your storage option, for example, your Kafka or database cluster configuration, and on the number and type of artifacts stored in {registry}.
+
+[role="_additional-resources"]
+.Additional resources
+* For details on building from source, see https://github.com/Apicurio/apicurio-registry.
+
+// Procedure
+== Creating a Registry Pod
+
+In https://podman.io/[Podman], a pod is a group of one or more containers that share the same network namespace.
+This section describe how to create a pod for the following containers:
+
+{registry} UI:: The frontend that enables the UI (optional).
+The {registry}:: The backend includes all the logic for managing APIs, schemas, and data models. 
++
+--
+You must specify a storage option, the `in-memory` option is good for learning about {registry}.
+
+This container also provides a UI in the form of the {registry} API documentation. 
+
+--
+
+.Procedure
+
+. Create a pod named `my-registry`:
++
+```bash
+podman pod create --name apicurio-pod -p 8080:8080 -p 8888:8888
+
+```
+
+. Add the {registry} containers to the pod:
++
+```bash
+podman run --pod apicurio-pod -d --name apicurio-registry apicurio/apicurio-registry:latest
+podman run --pod apicurio-pod -d --name apicurio-registry-ui apicurio/apicurio-registry-ui:latest
+```
+
+. Use Podman Desktop or `podman pod inspect my-registry` to check your containers.
+
+. Navigate to 
+
+:!context:
+
